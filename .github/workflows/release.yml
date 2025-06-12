@@ -59,6 +59,9 @@ jobs:
         with:
           go-version: "1.24.3"
 
+      - name: Hydrate .version with given tag
+        run: echo "v${{ github.ref_name }}" > cmd/.version
+
       - name: Build
         run: |
           make build+all

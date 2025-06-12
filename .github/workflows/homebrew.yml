@@ -1,13 +1,9 @@
 name: Update Homebrew Tap
 
-# on:
-#   release:
-#     types: [published]
-
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+
 jobs:
   update-tap:
     runs-on: ubuntu-latest
@@ -20,7 +16,7 @@ jobs:
         token: ${{ secrets.CODA_HOMEBREW_ACCESS_TOKEN }}
 
     - name: Set Release Name
-      run: echo "RELEASE_NAME=v0.0.1" >> $GITHUB_ENV
+      run: echo "RELEASE_NAME=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
 
     - name: Download Release Assets
       run: |
