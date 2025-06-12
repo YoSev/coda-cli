@@ -20,5 +20,5 @@ func init() {
 }
 
 func version(cmd *cobra.Command, args []string) {
-	fmt.Printf("cli: %s (runtime: %s|%s) | engine: %s\n", VERSION, runtime.GOOS, runtime.GOARCH, coda.VERSION)
+	fmt.Printf("cli: %s (runtime: %s|%s) | engine: v%s\n", VERSION, runtime.GOOS, runtime.GOARCH, coda.VERSION)
 }
