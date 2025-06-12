@@ -116,4 +116,4 @@ jobs:
           make_latest: "true"
           files: _dist/**/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CODA_HOMEBREW_ACCESS_TOKEN }}
