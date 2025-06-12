@@ -24,7 +24,7 @@ var rootCmd = &cobra.Command{
 
 func Execute(args []string) {
 	rootCmd.SetHelpCommand(&cobra.Command{
-		Use:    "help",
+		Use:    "no-help",
 		Hidden: true,
 	})
 
