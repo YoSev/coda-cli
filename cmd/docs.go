@@ -14,24 +14,40 @@ var docsCmd = &cobra.Command{
 	Run:                   docs,
 }
 
+var amount bool
+
 func init() {
+	docsCmd.Flags().BoolVarP(&amount, "amount", "a", false, "show amount of operations in each category")
+
 	rootCmd.AddCommand(docsCmd)
 }
 
 func docs(cmd *cobra.Command, args []string) {
 	c := coda.New()
-	for _, operation := range c.GetOperations() {
-		fmt.Printf("Action: %s\nDescription: %s\nCategory: %s\n", operation.Name, operation.Description, operation.Category)
-		if len(operation.Parameters) > 0 {
-			fmt.Printf("Parameters:\n")
+	if amount {
+		fmt.Printf("Total: %d\n", len(c.Fn.GetFns()))
+		// print amount per category by looping over GetFns()
+		categories := make(map[string]int)
+		for _, operation := range c.Fn.GetFns() {
+			categories[string(operation.Category)]++
 		}
-		for _, v := range operation.Parameters {
-			name := v.Name
-			if v.Mandatory {
-				name = "(*)" + name
+		for category, count := range categories {
+			fmt.Printf("%s: %d\n", category, count)
+		}
+	} else {
+		for key, operation := range c.Fn.GetFns() {
+			fmt.Printf("Action: %s\nName: %s\nDescription: %s\nCategory: %s\n", key, operation.Name, operation.Description, operation.Category)
+			if len(operation.Parameters) > 0 {
+				fmt.Printf("Parameters:\n")
 			}
-			fmt.Printf("  - %s: %s\n", name, v.Description)
+			for _, v := range operation.Parameters {
+				name := v.Name
+				if v.Mandatory {
+					name = "(*)" + name
+				}
+				fmt.Printf("  - %s: %s\n", name, v.Description)
+			}
+			fmt.Printf("\n")
 		}
-		fmt.Printf("\n")
 	}
 }
