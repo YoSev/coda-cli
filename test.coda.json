@@ -1,22 +1,17 @@
 {
   "coda": {
-    "stats": true
-  },
-  "store": {
-    "url": "https://api.ipify.org?format=json"
+    "stats": true,
+    "logs": true
   },
   "operations": {
-    "http": {
+    "match": {
       "entrypoint": true,
-      "action": "http.request",
+      "action": "string.match.regex",
       "params": {
-        "url": "${store.url}",
-        "method": "GET",
-        "headers": {
-          "Accept": "application/json"
-        }
+        "value": "i LIKE big BUTTS and I cannot LIE",
+        "regex": "^[a-zA-Z ]+$"
       },
-      "store": "http"
+      "store": "match"
     }
   }
 }
