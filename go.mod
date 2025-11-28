@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/spf13/cobra v1.9.1
-	github.com/yosev/coda v0.1.6
+	github.com/yosev/coda v0.1.7
 )
 
 require (
